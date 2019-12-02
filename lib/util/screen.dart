@@ -4,11 +4,12 @@ import 'dart:ui' as ui show window;
 
 
 class Screen {
+  //用逻辑像素表示的屏幕宽度
   static double get width {
     MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.size.width;
   }
-  
+  //用逻辑像素表示的屏幕高度
   static double get height {
     MediaQueryData mediaQuery = MediaQueryData.fromWindow(ui.window);
     return mediaQuery.size.height;

@@ -7,6 +7,7 @@ import 'package:douban_flutter/pages/register_page.dart';
 import 'package:douban_flutter/pages/splash_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 //flutter 程序在运行的时候，第一个执行的函数就是main()函数
 void main() {
@@ -14,7 +15,7 @@ void main() {
   //设置沉浸式状态栏
   if (Platform.isAndroid) {
     SystemUiOverlayStyle systemUiOverlayStyle =
-    SystemUiOverlayStyle(statusBarColor:Colors.transparent);
+        SystemUiOverlayStyle(statusBarColor: Colors.transparent);
     SystemChrome.setSystemUIOverlayStyle(systemUiOverlayStyle);
   }
 }
@@ -39,6 +40,34 @@ class MyApp extends StatelessWidget {
         'LoginPage': (BuildContext context) => LoginPage(),
         'RegisterPage': (BuildContext context) => RegisterPage(),
         'AppPage': (BuildContext context) => AppPage(),
+        //WebviewScaffold 是Flutter用来实现网页浏览的组件
+        '/flutter': (_) => new WebviewScaffold(
+              //Webview插件
+              url: "https://flutter.io/", //指定的网址的URL
+              appBar: new AppBar(
+                title: new Text("Flutter官网"),
+              ),
+              withZoom: true, //是否缩放界面
+              withLocalStorage: true, //是否本地存储
+            ),
+        '/flutterChina': (_) => new WebviewScaffold(
+              //Webview插件
+              url: "https://flutterchina.club/networking/", //指定的网址的URL
+              appBar: new AppBar(
+                title: new Text("Flutter官网"),
+              ),
+              withZoom: true, //是否缩放界面
+              withLocalStorage: true, //是否本地存储
+            ),
+        '/flutterDependences': (_) => new WebviewScaffold(
+          //Webview插件
+          url: "https://pub.flutter-io.cn/", //指定的网址的URL
+          appBar: new AppBar(
+            title: new Text("Flutter官网"),
+          ),
+          withZoom: true, //是否缩放界面
+          withLocalStorage: true, //是否本地存储
+        ),
       },
     );
   }

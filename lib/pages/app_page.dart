@@ -94,7 +94,9 @@ class _SplashWidgetState extends State<AppPage> {
                 backgroundImage: AssetImage("assets/images/home.png"),
               ),
               onDetailsPressed: () {
-                //跳转详情页
+                //关闭左侧栏 跳转详情页
+                Navigator.pop(context, true);
+                _onItemTapped(3);
               },
               //用来设置当前用户的其他账号的头像(最多显示三个)
               otherAccountsPictures: <Widget>[
@@ -190,7 +192,7 @@ class _SplashWidgetState extends State<AppPage> {
       case 2:
         return FindPage();
       case 3:
-        return MePage(context);
+        return MePage();
     }
   }
 }

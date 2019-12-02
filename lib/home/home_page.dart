@@ -13,9 +13,7 @@ class HomePage extends StatefulWidget{
  * AutomaticKeepAliveClientMixin需要用到页面保持状态，使他不销毁不重绘
  */
 class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
-  int pageIndex = 0;
   var newsList;
-  var nowPlayingList, comingList;
   @override
   void initState() {
     // TODO: implement initState
@@ -25,28 +23,30 @@ class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return Container();
-//    if (nowPlayingList == null) {
-//      return new Center(
-//        child: new CupertinoActivityIndicator(
-//        ),
-//      );
-//    } else {
-//      return Container(
-//          child: RefreshIndicator(
-//            color: AppColor.primary,
-//            onRefresh: fetchData,
-//            child: ListView(
-//              addAutomaticKeepAlives: true,
-//              // 防止 children 被重绘，
-//              cacheExtent: 10000,
-//              children: <Widget>[
-//                new NewsBannerView(newsList),
-//              ],
-//            ),
-//          )
-//      );
-//    }
+    if (newsList == null) {
+      return new Center(
+        //ios菊花进度条 等数据加载结束后消失
+        child: new CupertinoActivityIndicator(
+        ),
+      );
+    } else {
+      return Container(
+        //下拉刷新组件
+          child: RefreshIndicator(
+            color: AppColor.red,
+            onRefresh: fetchData,
+            child: ListView(
+              //表示是否将列表项包裹在AutomaticKeepAlive中
+              addAutomaticKeepAlives: true,
+              // 防止 children 被重绘，设置预加载的区域
+              cacheExtent: 10000,
+              children: <Widget>[
+                new NewsBannerView(newsList),
+              ],
+            ),
+          )
+      );
+    }
   }
 
   @override
@@ -56,11 +56,14 @@ class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   Future<void> fetchData() async {
     ApiClient client = new ApiClient();
     List<MovieNews> news = await client.getNewsList();
-
     setState(() {
       newsList =news2Banner(news);
     });
   }
+
+  /**
+   * 构建新的banner实体
+   */
   List<NewsBanner> news2Banner(var list) {
     List content = list;
     List<NewsBanner> banners = [];
