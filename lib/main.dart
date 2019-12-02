@@ -9,6 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
+import 'demo/CarouseSliderDemo.dart';
+
 //flutter 程序在运行的时候，第一个执行的函数就是main()函数
 void main() {
   runApp(MyApp());
@@ -34,7 +36,7 @@ class MyApp extends StatelessWidget {
         accentColor: Colors.yellow,
       ),
       //home对应的是应用程序首页
-      home: SplashPage(),
+      home: CarouseSliderDemo(),
       //添加页面跳转路由
       routes: {
         'LoginPage': (BuildContext context) => LoginPage(),

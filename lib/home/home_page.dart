@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget{
  */
 class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   var newsList;
+  var nowPlayingList, comingList;
   @override
   void initState() {
     // TODO: implement initState
@@ -23,7 +24,7 @@ class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    if (newsList == null) {
+    if (nowPlayingList == null) {
       return new Center(
         //ios菊花进度条 等数据加载结束后消失
         child: new CupertinoActivityIndicator(
@@ -42,6 +43,7 @@ class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
               cacheExtent: 10000,
               children: <Widget>[
                 new NewsBannerView(newsList),
+                //new MovieThreeGridView(nowPlayingList, '影院热映', 'in_theaters'),
               ],
             ),
           )
