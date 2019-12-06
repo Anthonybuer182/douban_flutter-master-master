@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:douban_flutter/model/movie_news.dart';
 import 'package:html/dom.dart' as dom;
 //show关键字表示只引用一点
@@ -9,7 +11,8 @@ class ApiClient {
   static const String baseUrl = 'http://api.douban.com/v2/movie/';
   static const String apiKey = '0b2bdeda43b5688921839c8ecb20399b';
   static const String webUrl = 'https://movie.douban.com/';
-  //从豆瓣网页上获取需要的轮播图片
+  var dio = ApiClient.createDio();
+  ///从豆瓣网页上获取需要的轮播图片
   Future<List<MovieNews>> getNewsList() async{
     //获取的轮播图信息列表
     List<MovieNews> news = [];
@@ -27,5 +30,44 @@ class ApiClient {
         });
     });
     return news;
+  }
+  /// 获取影院热映电影
+  Future<dynamic> getNowPlayingList({int start, int count}) async {
+    /**
+     * in_theaters与baseUrl进行拼接
+     * start和count是请求参数
+     * subjects返回列表数据的key 如subjects: [{rating: {max: 10, average: 8.3...]
+     */
+    Response<Map> response = await dio.get('in_theaters', queryParameters: {"start":start, 'count':count});
+    return response.data['subjects'];
+  }
+
+  /// 获取即将上映电影
+  Future<dynamic> getComingList({int start, int count}) async {
+    Response<Map> response = await dio.get('coming_soon', queryParameters: {"start":start, 'count':count});
+    return response.data['subjects'];
+  }
+
+  ///配置请求参数
+  static Dio createDio() {
+    var options = BaseOptions(
+      // 请求路径，如果 `path` 以 "http(s)"开始, 则 `baseURL` 会被忽略； 否则,
+      //将会和baseUrl拼接出完整的的url.
+        baseUrl: baseUrl,
+        // 连接服务器超时时间，单位是毫秒.
+        connectTimeout: 10000,
+        //响应流上前后两次接受到数据的间隔，单位为毫秒。如果两次间隔超过[receiveTimeout]，
+        receiveTimeout: 10000,
+        // 请求的Content-Type，默认值是[ContentType.JSON].
+        //如果您想以"application/x-www-form-urlencoded"格式编码请求数据,
+        //可以设置此选项为 `ContentType.parse("application/x-www-form-urlencoded")`,  这样[Dio]
+        //就会自动编码请求体.
+        contentType: ContentType.json,
+        //添加固定参数
+        queryParameters: {
+          "apikey":apiKey
+        }
+    );
+    return Dio(options);
   }
 }

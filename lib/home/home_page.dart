@@ -1,8 +1,10 @@
 import 'package:douban_flutter/model/movie_news.dart';
 import 'package:douban_flutter/net/api_client.dart';
+import 'package:douban_flutter/util/MovieDataUtil.dart';
 import 'package:douban_flutter/util/app_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'MovieThreeGridView.dart';
 import 'home_news_banner_view.dart';
 class HomePage extends StatefulWidget{
   @override
@@ -43,7 +45,8 @@ class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
               cacheExtent: 10000,
               children: <Widget>[
                 new NewsBannerView(newsList),
-                //new MovieThreeGridView(nowPlayingList, '影院热映', 'in_theaters'),
+                new MovieThreeGridView(nowPlayingList, '影院热映', 'in_theaters'),
+                new MovieThreeGridView(comingList, '即将上映', 'coming_soon'),
               ],
             ),
           )
@@ -58,8 +61,12 @@ class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
   Future<void> fetchData() async {
     ApiClient client = new ApiClient();
     List<MovieNews> news = await client.getNewsList();
+    var nowPlayingData = await client.getNowPlayingList(start: 0, count: 6);
+    var comingListData = await client.getComingList(start: 0, count: 6);
     setState(() {
       newsList =news2Banner(news);
+      comingList = MovieDataUtil.getMovieList(comingListData);
+      nowPlayingList = MovieDataUtil.getMovieList(nowPlayingData);
     });
   }
 

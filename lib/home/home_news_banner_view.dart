@@ -1,5 +1,6 @@
 //import 'package:cached_network_image/cached_network_image.dart';
 import 'package:douban_flutter/model/movie_news.dart';
+import 'package:douban_flutter/util/AppNavigator.dart';
 import 'package:douban_flutter/util/app_color.dart';
 import 'package:douban_flutter/util/screen.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class NewsBannerView extends StatelessWidget {
               return GestureDetector(
                 onTap: () {
                   //点击tab按键
-                  //AppNavigator.pushWeb(context, banner.news.link,banner.news.title);
+                  AppNavigator.pushWeb(context, banner.news.link,banner.news.title);
                 },
                 child: Container(
                     width: Screen.width,
