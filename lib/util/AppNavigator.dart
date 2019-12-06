@@ -1,3 +1,4 @@
+import 'package:douban_flutter/home/MovieDetailView.dart';
 import 'package:douban_flutter/model/MovieItem.dart';
 import 'package:douban_flutter/pages/WebViewScene.dart';
 import 'package:flutter/material.dart';
@@ -13,11 +14,11 @@ class AppNavigator {
     );
   }
 
-//  // 进入电影详情
-//  static pushMovieDetail(BuildContext context, MovieItem movie) {
-//    AppNavigator.push(context, MovieDetailView(id: movie.id,));
-//  }
-//
+  // 进入电影详情
+  static pushMovieDetail(BuildContext context, MovieItem movie) {
+    AppNavigator.push(context, MovieDetailView(id: movie.id,));
+  }
+
 //  // 进入电影列表页面
 //  static pushMovieList(BuildContext context, String title, String action) {
 //    AppNavigator.push(context, MovieListView(title: title, action: action));

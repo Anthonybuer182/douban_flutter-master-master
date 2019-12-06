@@ -1,4 +1,5 @@
 import 'package:douban_flutter/model/MovieItem.dart';
+import 'package:douban_flutter/util/AppNavigator.dart';
 import 'package:douban_flutter/util/app_color.dart';
 import 'package:douban_flutter/util/screen.dart';
 import 'package:douban_flutter/widget/MovieCoverImage.dart';
@@ -20,7 +21,7 @@ class HomeMovieCoverView extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        //AppNavigator.pushMovieDetail(context, movie);
+        AppNavigator.pushMovieDetail(context, movie);
       },
       child: Container(
         width: width,

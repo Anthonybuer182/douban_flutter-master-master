@@ -47,7 +47,11 @@ class ApiClient {
     Response<Map> response = await dio.get('coming_soon', queryParameters: {"start":start, 'count':count});
     return response.data['subjects'];
   }
-
+/// 获取电影详情
+  Future<dynamic> getMovieDetail(String movieId) async {
+    Response<Map> response = await dio.get('subject/$movieId');
+    return response.data;
+  }
   ///配置请求参数
   static Dio createDio() {
     var options = BaseOptions(
