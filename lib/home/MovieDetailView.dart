@@ -7,6 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:palette_generator/palette_generator.dart';
 
+import 'movie/MovieDetailCastView.dart';
+import 'movie/MovieDetailComment.dart';
+import 'movie/MovieDetailHeader.dart';
+import 'movie/MovieDetailPhotots.dart';
+import 'movie/MovieDetailTag.dart';
+import 'movie/MovieSummaryView.dart';
+
 class MovieDetailView extends StatefulWidget {
   // 电影 id
   final String id;
@@ -81,12 +88,14 @@ class _MovieDetailViewState extends State<MovieDetailView> {
                     controller: scrollController,
                     padding: EdgeInsets.only(top: 0),
                     children: <Widget>[
-//                      MovieDetailHeader(movieDetail, pageColor),
-//                      MovieDetailTag(movieDetail.tags),
-//                      MovieSummaryView(movieDetail.summary, isSummaryUnfold, changeSummaryMaxLines),
-//                      MovieDetailCastView(movieDetail.directors, movieDetail.casts),
-//                      MovieDetailPhotots(movieDetail.trailers, movieDetail.photos, movieDetail.id),
-//                      MovieDetailComment(movieDetail.comments)
+                      MovieDetailHeader(movieDetail, pageColor),
+                      MovieDetailTag(movieDetail.tags),
+
+                      MovieSummaryView(movieDetail.summary, isSummaryUnfold, changeSummaryMaxLines),
+                      //演员表
+                      MovieDetailCastView(movieDetail.directors, movieDetail.casts),
+                      MovieDetailPhotots(movieDetail.trailers, movieDetail.photos, movieDetail.id),
+                      MovieDetailComment(movieDetail.comments)
                     ],
                   ),
                 )
@@ -107,7 +116,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
           width: 44,
           height: Screen.navigationBarHeight,
           padding: EdgeInsets.fromLTRB(5, Screen.topSafeHeight, 0, 0),
-          child: GestureDetector(onTap: back, child: Image.asset('images/icon_arrow_back_white.png')),
+          child: GestureDetector(onTap: back, child: Image.asset('assets/images/icon_arrow_back_white.png')),
         ),
         Opacity(
           opacity: navAlpha,
@@ -119,7 +128,7 @@ class _MovieDetailViewState extends State<MovieDetailView> {
               children: <Widget>[
                 Container(
                   width: 44,
-                  child: GestureDetector(onTap: back, child: Image.asset('images/icon_arrow_back_white.png')),
+                  child: GestureDetector(onTap: back, child: Image.asset('assets/images/icon_arrow_back_white.png')),
                 ),
                 Expanded(
                   child: Text(

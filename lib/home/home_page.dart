@@ -4,7 +4,9 @@ import 'package:douban_flutter/util/MovieDataUtil.dart';
 import 'package:douban_flutter/util/app_color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'MovieClassifyView.dart';
 import 'MovieThreeGridView.dart';
+import 'MovieTopScrollView.dart';
 import 'home_news_banner_view.dart';
 class HomePage extends StatefulWidget{
   @override
@@ -47,6 +49,8 @@ class _HomeState extends State<HomePage> with AutomaticKeepAliveClientMixin{
                 new NewsBannerView(newsList),
                 new MovieThreeGridView(nowPlayingList, '影院热映', 'in_theaters'),
                 new MovieThreeGridView(comingList, '即将上映', 'coming_soon'),
+                new MovieTopScrollView(title: '电影榜单'),
+                new MovieClassifyView(title: '分类浏览')
               ],
             ),
           )

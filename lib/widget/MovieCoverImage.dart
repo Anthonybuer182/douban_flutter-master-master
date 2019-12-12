@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 class MovieCoverImage extends StatelessWidget {
@@ -13,8 +14,7 @@ class MovieCoverImage extends StatelessWidget {
     return Container(
       child: ClipRRect(
         child: Image(
-          //image: CachedNetworkImageProvider(imgUrl),
-          image: NetworkImage(imgUrl),
+          image: CachedNetworkImageProvider(imgUrl),
           fit: BoxFit.cover,
           width: width,
           height: height,

@@ -47,10 +47,70 @@ class ApiClient {
     Response<Map> response = await dio.get('coming_soon', queryParameters: {"start":start, 'count':count});
     return response.data['subjects'];
   }
+  // 获取本周口碑榜电影
+  Future<dynamic> getWeeklyList() async {
+    Response<Map> response = await dio.get('weekly');
+    List content =response.data['subjects'];
+    List movies = [];
+    content.forEach((data) {
+      movies.add(data['subject']);
+    });
+    return movies;
+  }
+
+  // 获取新片榜电影
+  Future<dynamic> getNewMoviesList() async {
+    Response<Map> response = await dio.get('new_movies');
+    return response.data['subjects'];
+  }
+
+  // 获取北美票房榜电影
+  Future<dynamic> getUsBoxList() async {
+    Response<Map> response = await dio.get('us_box');
+    List content =response.data['subjects'];
+    List movies = [];
+    content.forEach((data) {
+      movies.add(data['subject']);
+    });
+    return movies;
+  }
+
+  // 获取 top250 榜单
+  Future<dynamic> getTop250List({int start, int count}) async {
+    Response<Map> response = await dio.get('top250', queryParameters: {'start':start, 'count':count});
+    print(response.data);
+    return response.data['subjects'];
+  }
 /// 获取电影详情
   Future<dynamic> getMovieDetail(String movieId) async {
     Response<Map> response = await dio.get('subject/$movieId');
     return response.data;
+  }
+  // 影片剧照
+  Future<dynamic> getMovieAlbum({String movieId, int start, int count}) async {
+    Response<Map> response = await dio.get('subject/$movieId/photos', queryParameters: {'start':start, 'count':count});
+    return response.data['photos'];
+  }
+
+  // 演员详细信息
+  Future<dynamic> getActorDetail(String actorId) async {
+    Response<Map> response = await dio.get('celebrity/$actorId');
+    return response.data;
+  }
+
+
+  // 获取演员相册
+  Future<dynamic> getActorPhotos({String actorId, int start, int count}) async {
+    Response<Map> response = await dio.get('celebrity/$actorId/photos', queryParameters: {'start':start, 'count':count});
+    return response.data['photos'];
+  }
+
+  // 根据标签搜索
+  Future<dynamic> getSearchListByTag({String tag, int start, int count}) async {
+    Response<Map> response = await dio.get('search', queryParameters: {'tag':tag, 'start':start, 'count':count});
+    print("http://api.douban.com/v2/movie/search?"+"tag&"+tag+"apikey&"+apiKey.toString()+"start&"+start.toString()+"count&"+count.toString());
+    print(response.data);
+    return response.data['subjects'];
   }
   ///配置请求参数
   static Dio createDio() {

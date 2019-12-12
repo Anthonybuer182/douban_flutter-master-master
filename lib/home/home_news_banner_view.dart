@@ -1,4 +1,5 @@
 //import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:douban_flutter/model/movie_news.dart';
 import 'package:douban_flutter/util/AppNavigator.dart';
 import 'package:douban_flutter/util/app_color.dart';
@@ -38,9 +39,8 @@ class NewsBannerView extends StatelessWidget {
                           //边框装饰器有边框、圆角、阴影、形状、渐变、背景图像
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                image: NetworkImage(banner.news.cover),
-                                //后期可添加缓存
-                                //image: CachedNetworkImageProvider(banner.news.cover),
+                                //添加图片缓存
+                                image: CachedNetworkImageProvider(banner.news.cover),
                                 fit: BoxFit.cover,
                               ),
                               //圆角
